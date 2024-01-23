@@ -3,6 +3,8 @@ import pygame
 import time
 import random
 
+pygame.init()
+
 # Define colors
 BLACK = (0, 0, 0)
 RED = (213, 50, 80)
@@ -69,8 +71,6 @@ def game_loop():
     blinking_timer = 0
     blinking_color_flag = False
 
-    original_snake_color = GREEN
-
     while not game_over:
 
         while game_close:
@@ -112,7 +112,7 @@ def game_loop():
 
         # Blinking logic
         if blinking_timer > 0:
-            blinking_timer -= pygame.time.get_ticks()
+            blinking_timer -= pygame.time.Clock().get_rawtime()
             if blinking_timer <= 0:
                 blinking_color_flag = not blinking_color_flag
                 blinking_timer = blinking_duration
@@ -120,7 +120,7 @@ def game_loop():
             blinking_color_flag = False
 
         # Change color based on blinking flag
-        snake_color = BLINKING_COLOR if blinking_color_flag else original_snake_color
+        snake_color = BLINKING_COLOR if blinking_color_flag else GREEN
 
         pygame.draw.rect(DIS, RED, [foodx, foody, SNAKE_BLOCK, SNAKE_BLOCK])
         snake_head = [x1, y1]
@@ -146,9 +146,6 @@ def game_loop():
             # Reset blinking timer
             blinking_timer = blinking_duration
             blinking_color_flag = True
-
-            # Restore original snake color
-            original_snake_color = GREEN
 
         pygame.time.Clock().tick(SNAKE_SPEED)
 
