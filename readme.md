@@ -2,6 +2,8 @@
 
 This is a simple Snake Game implemented in Python using the Pygame library.
 
+![PySnake Header Image](image.png)
+
 ## How to Play
 
 1. Run the `pysnake.py` file.
